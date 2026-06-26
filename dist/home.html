@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+	<head>
+		<title>Главная</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/fancybox.min.css" />
+		<link rel="stylesheet" href="css/styles.css" />
+
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+	</head>
+
+	<body class="preload mp">
+		<div class="main-wrapper-outer">
+			<header class="header">
+				<div class="container">
+					<div class="header__content">
+						<div class="header__logo">
+							<a href="./">
+								<img src="img/icons/logo1.svg" alt="">
+							</a>
+							<p data-da=".header-menu, 992, first">
+								Печать на готовой упаковке малыми и средними тиражами
+							</p>
+						</div>
+						<div class="header-menu">
+							<div data-spollers="1400,max" class="header-menu__spollers">
+								<div class="header-menu__item item-menu">
+									<button type="button" data-spoller class="header-menu__title">
+										<span class="icon-menu"><span></span></span>
+										<span>Услуги</span>
+									</button>
+									<div class="header-menu__body">
+										<ul>
+											<li>
+												<a href="./">
+													Печать на крафтовых пакетах
+												</a>
+											</li>
+											<li>
+												<a href="./">
+													Печать на готовых гофрокоробках
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="header-menu__item">
+									<a href="./" class="header-menu__title">
+										Наши работы
+									</a>
+								</div>
+								<div class="header-menu__item">
+									<a href="./" class="header-menu__title">
+										Требования к макетам
+									</a>
+								</div>
+								<div class="header-menu__item">
+									<a href="./" class="header-menu__title">
+										Контакты
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="header__right">
+							<div class="header__contacts">
+								<a href="tel:79882500408" class="header__phone">
+									+7 (988) <span>250-04-08</span>
+								</a>
+								<div class="socials">
+									<a href="./">
+										<img src="img/icons/telegramm.svg" alt="">
+									</a>
+									<a href="./">
+										<img src="img/icons/max.svg" alt="">
+									</a>
+								</div>
+							</div>
+							<a data-da=".header-menu, 768, 2" href="./" data-popup="#request" class="btn">
+								<span>Заказать расчет</span>
+								<svg aria-hidden="true" width="7" height="11">
+									<use xlink:href="img/sprite.svg#arrow2"></use>
+								</svg>
+							</a>
+							<button type="button" class="header__icon icon-menu"><span></span></button>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main class="main">
+
+			</main>
+
+		</div>
+		<div id="request" aria-hidden="true" class="popup popup-forms">
+			<div class="popup__wrapper">
+				<div class="popup__content">
+					<div data-close class="popup__close">
+						<svg aria-hidden="true" width="24" height="24">
+							<use xlink:href="img/sprite.svg#close"></use>
+						</svg>
+					</div>
+					<div class="popup-forms__body">
+						<div class="popup-forms__top">
+							<div class="popup-forms__title"><strong>Заказать</strong> Расчет</div>
+							<p>
+								Прикрепите ваш дизайн, напишите желаемый тип пакета (бурый/белый) и тираж. Мы свяжемся с вами в
+								течение 30 минут с готовым расчетом
+							</p>
+						</div>
+						<form action="#" class="form">
+							<div class="form__body">
+								<div class="form__inputs">
+									<div class="form__input">
+										<input data-required autocomplete="off" type="text" name="form[1]" placeholder="Ваше имя" class="input">
+									</div>
+									<div class="form__input">
+										<input data-required autocomplete="off" type="text" name="form[1]" placeholder="Номер телефона" class="input telephone">
+									</div>
+								</div>
+								<div class="form__inputs">
+									<div class="form__input form-input-file">
+										<input readonly data-required autocomplete="off" type="text" name="form[1]" placeholder="Прикрепить макет или логотип" class="input">
+										<div class="form-file">
+											<input type="file">
+											<svg aria-hidden="true" width="20" height="20">
+												<use xlink:href="img/sprite.svg#paper-clip"></use>
+											</svg>
+										</div>
+									</div>
+								</div>
+								<div class="form__inputs">
+									<div class="form__input textarea">
+										<textarea data-required placeholder="Ваш комментарий (размер коробки и тираж)" class="input" name="form[1]"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form__bottom">
+								<button type="submit" class="btn btn-yellow">
+									<span>Заказать расчет</span>
+									<svg aria-hidden="true" width="7" height="11">
+										<use xlink:href="img/sprite.svg#arrow2"></use>
+									</svg>
+								</button>
+								<div class="form__text">
+									Нажимая на кнопку, вы соглашаетесь с <a href="./">политикой конфиденциальности</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/swiper-8.4.7.min.js"></script>
+		<script src="js/inputmask.min.js"></script>
+		<script src="js/fancybox.umd.js"></script>
+		<script src="js/dynamic_adapt.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+
+</html>

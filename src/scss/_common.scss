@@ -1,0 +1,156 @@
+body {
+  color: var(--141920);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  padding: 0px 0px 0px 0px !important;
+  &.hide-scrollbar {
+    margin: 0px 0px 0px 0px !important;
+  }
+  .lock & {
+    overflow: hidden;
+  }
+  .popup-show & {
+    overflow: hidden;
+  }
+  &::before {
+    content: "";
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 97;
+    background: rgba(20, 25, 32, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-open & {
+    overflow: hidden;
+    &::before {
+      content: "";
+      opacity: 1;
+      pointer-events: auto;
+      @media (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+}
+
+body.noscroll {
+  overflow: hidden;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+fieldset,
+fieldset legend {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  outline: none;
+  color: currentcolor;
+}
+
+.btn {
+  border-radius: 12px;
+  background-color: var(--f05221);
+  box-shadow: 0 20px 30px 0 rgba(117, 20, 11, 0.2);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+  padding: 5px 40px;
+  min-height: 60px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  text-align: center;
+  color: var(--ffffff);
+  transition: opacity 0.3s;
+  width: fit-content;
+  &:hover {
+    opacity: 0.7;
+  }
+  span {
+    display: block;
+    margin-bottom: 5px;
+  }
+  svg {
+    fill: var(--ffffff);
+  }
+  &.btn-yellow {
+    min-height: 120px;
+    font-size: 24px;
+    box-shadow: none;
+    line-height: 117%;
+    font-weight: 900;
+    border-radius: 20px;
+    color: var(--141920);
+    background-color: var(--f6ec4c);
+    svg {
+      fill: var(--141920);
+    }
+    @media (max-width: 768px) {
+      padding: 5px 20px;
+      min-height: 100px;
+      font-size: 20px;
+      line-height: 120%;
+      span {
+        margin-bottom: 3px;
+      }
+    }
+    @media (max-width: 359px) {
+      border-radius: 12px;
+      min-height: 80px;
+      font-size: 18px;
+    }
+  }
+}
+
+.title2 {
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 113%;
+  text-transform: uppercase;
+  text-align: center;
+  span {
+    font-weight: 700;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  a {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: opacity 0.3s;
+    &:hover {
+      opacity: 0.7;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
