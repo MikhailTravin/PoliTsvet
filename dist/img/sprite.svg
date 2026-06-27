@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
+<clipPath id="a">
+      <path d="M0 0h16v16H0z"/>
+    </clipPath>
+  
+
 <clipPath id="clip0_2006_182">
 <rect width="96" height="27" fill="white" transform="translate(0 46)"/>
 </clipPath>
@@ -28,6 +33,15 @@
 <symbol id="close" viewBox="0 0 24 24">
   <path d="M1.06 22.274a1.5 1.5 0 0 1 0-2.121L20.154 1.06a1.5 1.5 0 1 1 2.12 2.121L3.183 22.274a1.5 1.5 0 0 1-2.121 0Z"/>
   <path d="M22.274 22.274a1.5 1.5 0 0 1-2.122 0L1.061 3.182a1.5 1.5 0 1 1 2.121-2.121l19.092 19.092a1.5 1.5 0 0 1 0 2.12Z"/>
+</symbol>
+<symbol id="home" viewBox="0 0 20 18">
+  <path d="m10 2.77 5 4.63v8.04h-2V9.265H7v6.176H5v-8.04l5-4.632ZM10 0 0 9.265h3V17.5h6v-6.177h2V17.5h6V9.265h3L10 0Z"/>
+</symbol>
+<symbol id="info" viewBox="0 0 16 16">
+  <g clip-path="url(#a)">
+    <path d="M6.519 4.74a1.185 1.185 0 1 1 2.37 0 1.185 1.185 0 0 1-2.37 0ZM16 8a8 8 0 1 1-8-8 8.01 8.01 0 0 1 8 8Zm-1.778 0A6.222 6.222 0 1 0 8 14.222 6.229 6.229 0 0 0 14.222 8ZM8.89 10.717v-2.42a1.481 1.481 0 0 0-1.482-1.482.889.889 0 0 0-.296 1.727v2.421a1.481 1.481 0 0 0 1.482 1.481.888.888 0 0 0 .296-1.727Z"/>
+  </g>
+  
 </symbol>
 <symbol id="logo1" viewBox="0 0 96 73">
 <g clip-path="url(#clip0_2006_182)">
