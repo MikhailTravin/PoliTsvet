@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Детальная страница кейса</title>
+    {% include 'blocks/head.njk' %}
+</head>
+
+<body class="preload mp">
+    <div class="main-wrapper-outer">
+        {% include 'blocks/header.njk' %}
+        <main class="main">
+
+            <div class="block-intro block-intro-detail">
+                <div class="container">
+                    <div class="block-intro__contents">
+                        <div class="bg1"></div>
+                        <div class="block-intro__content">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="block-intro__body">
+                                <div class="block-intro__left">
+                                    <div class="breadcrumbs">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <svg aria-hidden="true" width="20" height="18">
+                                                        <use xlink:href="img/sprite.svg#home"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Наши работы
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    Гофрокоробки
+                                                </a>
+                                            </li>
+                                            <li><span>Упаковка для бренда натуральной косметики</span></li>
+                                        </ul>
+                                    </div>
+                                    <h1 class="title1">
+                                        <strong>
+                                            Брендирование самосборных коробок
+                                        </strong>
+                                        <span>для бренда натуральной косметики</span>
+                                    </h1>
+                                    <div class="block-intro__text">
+                                        <p>
+                                            Пример полноцветной печати на готовых коробках из белого микрогофрокартона.
+                                            Реализовали яркий и детализированный дизайн клиента без затрат на
+                                            изготовление печатных форм
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-section1 block-section1-detail">
+                <div class="container">
+                    <h2 class="title2">
+                        <span>Ключевые</span> выгоды
+                    </h2>
+                    <div class="block-section1__body">
+                        <div class="block-section1__column">
+                            <div class="block-section1__image">
+                                <div class="icon-check icon-check-yellow">
+                                    <svg aria-hidden="true" width="16" height="14">
+                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                    </svg>
+                                </div>
+                                <img loading="lazy" src="img/image24.webp" alt="">
+                            </div>
+                            <div class="block-section1__title">
+                                Экономия бюджета
+                            </div>
+                            <p>
+                                Клиент сэкономил более 15 000 рублей на отказе от изготовления клише
+                            </p>
+                        </div>
+                        <div class="block-section1__column">
+                            <div class="block-section1__image">
+                                <div class="icon-check icon-check-yellow">
+                                    <svg aria-hidden="true" width="16" height="14">
+                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                    </svg>
+                                </div>
+                                <img loading="lazy" src="img/image25.webp" alt="">
+                            </div>
+                            <div class="block-section1__title">
+                                Скорость
+                            </div>
+                            <p>
+                                От получения чистых коробок на наш склад до отгрузки готового тиража прошло всего 48
+                                часов
+                            </p>
+                        </div>
+                        <div class="block-section1__column">
+                            <div class="block-section1__image">
+                                <div class="icon-check icon-check-yellow">
+                                    <svg aria-hidden="true" width="16" height="14">
+                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                    </svg>
+                                </div>
+                                <img loading="lazy" src="img/image26.webp" alt="">
+                            </div>
+                            <div class="block-section1__title">
+                                Качество деталей
+                            </div>
+                            <p>
+                                Текст состава косметики (шрифт 8 pt) читается идеально четко, без размытия по краям букв
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        {% include 'blocks/footer.njk' %}
+    </div>
+    {% include 'blocks/popups.njk' %}
+    {% include 'blocks/scripts.njk' %}
+</body>
+
+</html>

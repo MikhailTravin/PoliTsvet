@@ -298,6 +298,10 @@
             justify-content: center;
             text-align: center;
         }
+        &.active {
+            pointer-events: none;
+            color: var(--113dde);
+        }
         &:hover {
             color: var(--113dde);
         }
