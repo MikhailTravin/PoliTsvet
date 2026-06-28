@@ -96,6 +96,20 @@ a {
   svg {
     fill: var(--ffffff);
   }
+  p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 133%;
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+    @media (max-width: 359px) {
+      font-size: 14px;
+    }
+    strong {
+      font-weight: 600;
+    }
+  }
   &.btn-yellow {
     min-height: 120px;
     font-size: 24px;
@@ -267,6 +281,34 @@ a {
     height: 44px;
     width: 251px;
     background-image: url("../img/bg2-mob.webp");
+  }
+}
+
+.contents-bg {
+  position: relative;
+  border-radius: 80px;
+  background: var(--f6f6f6);
+  @media (max-width: 1476px) {
+    border-radius: 40px;
+  }
+  @media (max-width: 992px) {
+    border-radius: 20px;
+  }
+}
+.content-bg {
+  border-radius: 80px;
+  position: relative;
+  max-width: 1336px;
+  margin: 0 auto;
+  padding: 109px 20px 0px 20px;
+  @media (max-width: 1476px) {
+    border-radius: 40px;
+  }
+  @media (max-width: 992px) {
+    border-radius: 20px;
+  }
+  @media (max-width: 768px) {
+    padding: 85px 20px 0px 20px;
   }
 }
 
