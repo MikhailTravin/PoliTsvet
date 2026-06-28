@@ -234,7 +234,7 @@ function spollers() {
 
       const button = e.currentTarget;
       const spollersBlock = button.closest('[data-spollers]');
-      const spollerItem = button.closest('.cabinet-orders-spollers__item');
+      const spollerItem = button.closest('[data-spoller]').closest('[data-spollers] > *');
 
       if (spollersBlock && spollerItem) {
         const spollerTitle = spollerItem.querySelector('[data-spoller]');
@@ -255,8 +255,9 @@ function spollers() {
       const el = e.target;
       if (el.closest("[data-spoller]")) {
         const spollerTitle = el.closest("[data-spoller]");
-
-        const spollerItem = spollerTitle.closest(".spollers__item, .cabinet-orders-spollers__item");
+        
+        // Ищем родительский элемент (независимо от класса)
+        const spollerItem = spollerTitle.closest('[data-spollers] > *');
         const spollersBlock = spollerTitle.closest("[data-spollers]");
 
         const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
@@ -267,8 +268,14 @@ function spollers() {
             hideSpollersBody(spollersBlock);
           }
 
+          // Переключаем класс у родительского элемента
+          if (spollerTitle.classList.contains("_spoller-active")) {
+            if (spollerItem) spollerItem.classList.remove('_spoller-active');
+          } else {
+            if (spollerItem) spollerItem.classList.add('_spoller-active');
+          }
+
           spollerTitle.classList.toggle("_spoller-active");
-          if (spollerItem) spollerItem.classList.toggle("_spoller-active");
 
           const contentBlock = spollerTitle.nextElementSibling;
           _slideToggle(contentBlock, spollerSpeed);
@@ -282,7 +289,7 @@ function spollers() {
       const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
       const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
       if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
-        const spollerItem = spollerActiveTitle.closest(".spollers__item, .cabinet-orders-spollers__item");
+        const spollerItem = spollerActiveTitle.closest('[data-spollers] > *');
 
         spollerActiveTitle.classList.remove("_spoller-active");
         if (spollerItem) spollerItem.classList.remove("_spoller-active");
@@ -298,9 +305,10 @@ function spollers() {
           spollersClose.forEach((spollerClose => {
             const spollersBlock = spollerClose.closest("[data-spollers]");
             const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+            
+            const spollerItem = spollerClose.closest('[data-spollers] > *');
+            
             spollerClose.classList.remove("_spoller-active");
-
-            const spollerItem = spollerClose.closest(".spollers__item, .cabinet-orders-spollers__item");
             if (spollerItem) spollerItem.classList.remove("_spoller-active");
 
             _slideUp(spollerClose.nextElementSibling, spollerSpeed);
@@ -310,7 +318,9 @@ function spollers() {
     }
   }
 }
+
 spollers();
+
 window.addEventListener('resize', function () {
   spollers();
 });
