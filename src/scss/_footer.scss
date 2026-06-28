@@ -3,6 +3,31 @@
         max-width: 1336px;
     }
 }
+.footer-other {
+    .footer-top {
+        border-radius: 0px 0px 80px 80px;
+        @media (max-width: 992px) {
+            border-radius: 0px 0px 40px 40px;
+        }
+        @media (max-width: 768px) {
+            border-radius: 0px 0px 20px 20px;
+        }
+    }
+}
+.footer-detail-case {
+    .footer-top__content {
+        padding: 152px 0px 95px 0px;
+        @media (max-width: 992px) {
+            padding: 130px 0px 55px 0px;
+        }
+        @media (max-width: 768px) {
+            padding: 100px 0px 55px 0px;
+        }
+        @media (max-width: 359px) {
+            padding: 80px 0px 55px 0px;
+        }
+    }
+}
 
 .footer-top {
     border-radius: 80px;

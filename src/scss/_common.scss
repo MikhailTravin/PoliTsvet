@@ -199,6 +199,10 @@ a {
   margin-bottom: 50px;
   span {
     font-weight: 700;
+    &.color {
+      font-weight: 500;
+      color: var(--f6ec4c);
+    }
   }
   @media (max-width: 768px) {
     font-size: 28px;
