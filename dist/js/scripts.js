@@ -255,7 +255,7 @@ function spollers() {
       const el = e.target;
       if (el.closest("[data-spoller]")) {
         const spollerTitle = el.closest("[data-spoller]");
-        
+
         // Ищем родительский элемент (независимо от класса)
         const spollerItem = spollerTitle.closest('[data-spollers] > *');
         const spollersBlock = spollerTitle.closest("[data-spollers]");
@@ -305,9 +305,9 @@ function spollers() {
           spollersClose.forEach((spollerClose => {
             const spollersBlock = spollerClose.closest("[data-spollers]");
             const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-            
+
             const spollerItem = spollerClose.closest('[data-spollers] > *');
-            
+
             spollerClose.classList.remove("_spoller-active");
             if (spollerItem) spollerItem.classList.remove("_spoller-active");
 
@@ -917,6 +917,126 @@ if (fileInput) {
 
 //========================================================================================================================================================
 
+//Наблюдатель
+class ScrollWatcher {
+  constructor(props) {
+    let defaultConfig = {
+      logging: true,
+    }
+    this.config = Object.assign(defaultConfig, props);
+    this.observer;
+    !document.documentElement.classList.contains('watcher') ? this.scrollWatcherRun() : null;
+  }
+  scrollWatcherUpdate() {
+    this.scrollWatcherRun();
+  }
+  scrollWatcherRun() {
+    document.documentElement.classList.add('watcher');
+    this.scrollWatcherConstructor(document.querySelectorAll('[data-watch]'));
+  }
+  scrollWatcherConstructor(items) {
+    if (items.length) {
+      let uniqParams = uniqArray(Array.from(items).map(function (item) {
+        if (item.dataset.watch === 'navigator' && !item.dataset.watchThreshold) {
+          let valueOfThreshold;
+          if (item.clientHeight > 2) {
+            valueOfThreshold =
+              window.innerHeight / 2 / (item.clientHeight - 1);
+            if (valueOfThreshold > 1) {
+              valueOfThreshold = 1;
+            }
+          } else {
+            valueOfThreshold = 1;
+          }
+          item.setAttribute(
+            'data-watch-threshold',
+            valueOfThreshold.toFixed(2)
+          );
+        }
+        return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : '0px'}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
+      }));
+      uniqParams.forEach(uniqParam => {
+        let uniqParamArray = uniqParam.split('|');
+        let paramsWatch = {
+          root: uniqParamArray[0],
+          margin: uniqParamArray[1],
+          threshold: uniqParamArray[2]
+        }
+        let groupItems = Array.from(items).filter(function (item) {
+          let watchRoot = item.dataset.watchRoot ? item.dataset.watchRoot : null;
+          let watchMargin = item.dataset.watchMargin ? item.dataset.watchMargin : '0px';
+          let watchThreshold = item.dataset.watchThreshold ? item.dataset.watchThreshold : 0;
+          if (
+            String(watchRoot) === paramsWatch.root &&
+            String(watchMargin) === paramsWatch.margin &&
+            String(watchThreshold) === paramsWatch.threshold
+          ) {
+            return item;
+          }
+        });
+
+        let configWatcher = this.getScrollWatcherConfig(paramsWatch);
+
+        this.scrollWatcherInit(groupItems, configWatcher);
+      });
+    }
+  }
+  getScrollWatcherConfig(paramsWatch) {
+    let configWatcher = {}
+    if (document.querySelector(paramsWatch.root)) {
+      configWatcher.root = document.querySelector(paramsWatch.root);
+    }
+    configWatcher.rootMargin = paramsWatch.margin;
+    if (paramsWatch.margin.indexOf('px') < 0 && paramsWatch.margin.indexOf('%') < 0) {
+      return
+    }
+    if (paramsWatch.threshold === 'prx') {
+      paramsWatch.threshold = [];
+      for (let i = 0; i <= 1.0; i += 0.005) {
+        paramsWatch.threshold.push(i);
+      }
+    } else {
+      paramsWatch.threshold = paramsWatch.threshold.split(',');
+    }
+    configWatcher.threshold = paramsWatch.threshold;
+
+    return configWatcher;
+  }
+  scrollWatcherCreate(configWatcher) {
+    console.log(configWatcher);
+    this.observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        this.scrollWatcherCallback(entry, observer);
+      });
+    }, configWatcher);
+  }
+  scrollWatcherInit(items, configWatcher) {
+    this.scrollWatcherCreate(configWatcher);
+    items.forEach(item => this.observer.observe(item));
+  }
+  scrollWatcherIntersecting(entry, targetElement) {
+    if (entry.isIntersecting) {
+      !targetElement.classList.contains('_watcher-view') ? targetElement.classList.add('_watcher-view') : null;
+    } else {
+      targetElement.classList.contains('_watcher-view') ? targetElement.classList.remove('_watcher-view') : null;
+    }
+  }
+  scrollWatcherOff(targetElement, observer) {
+    observer.unobserve(targetElement);
+  }
+  scrollWatcherCallback(entry, observer) {
+    const targetElement = entry.target;
+    this.scrollWatcherIntersecting(entry, targetElement);
+    targetElement.hasAttribute('data-watch-once') && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
+    document.dispatchEvent(new CustomEvent("watcherCallback", {
+      detail: {
+        entry: entry
+      }
+    }));
+  }
+}
+modules_flsModules.watcher = new ScrollWatcher({});
+
 //Прокрутка к блоку
 let gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
   const targetBlockElement = document.querySelector(targetBlock);
@@ -1062,7 +1182,7 @@ Fancybox.bind("[data-fancybox]", {
 const filterButtons = document.querySelectorAll('.block-portfolio-nav__title');
 
 if (filterButtons) {
-  const cards = document.querySelectorAll('.card-portfolio');
+  const cards = document.querySelectorAll('.filter-card');
   const portfolioBody = document.querySelector('.block-portfolio__body');
   function filterCards(filterValue) {
     let visibleCount = 0;
@@ -1143,6 +1263,26 @@ if (document.querySelector('.block-gallery__slider')) {
     breakpoints: {
       992: {
         spaceBetween: 30,
+      },
+    },
+  });
+}
+if (document.querySelector('.block-gallery__slider2')) {
+  const gallerySwiper = new Swiper('.block-gallery__slider2', {
+    observer: true,
+    observeParents: true,
+    slidesPerView: 'auto',
+    spaceBetween: 10,
+    speed: 400,
+    preloadImages: true,
+    navigation: {
+      prevEl: '.block-gallery__arrow-prev',
+      nextEl: '.block-gallery__arrow-next',
+    },
+    breakpoints: {
+      1336: {
+        slidesPerView: 3,
+        spaceBetween: 24,
       },
     },
   });
@@ -1293,3 +1433,195 @@ function showMore() {
   });
 }
 showMore();
+
+//========================================================================================================================================================
+
+document.addEventListener('DOMContentLoaded', function () {
+  const menuBody = document.querySelector('.page-blog-menu__body');
+  const menuContainer = document.querySelector('.page-blog-menu');
+
+  if (!menuBody || !menuContainer) return;
+
+  let spacer = null;
+  let isFixed = false;
+  let isAtBottom = false;
+  let menuHeight = 0;
+
+  const isDesktop = () => window.innerWidth > 1200;
+  const OFFSET_TOP = 115;
+
+  function getPositions() {
+    const containerRect = menuContainer.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    menuHeight = menuBody.offsetHeight;
+
+    const containerTop = containerRect.top + scrollY;
+    const containerBottom = containerRect.bottom + scrollY;
+    const startFix = containerTop - OFFSET_TOP;
+    const stopFix = containerBottom - OFFSET_TOP - menuHeight;
+
+    return {
+      containerTop,
+      containerBottom,
+      startFix,
+      stopFix,
+      scrollY,
+      containerLeft: containerRect.left,
+      containerRect
+    };
+  }
+
+  function createSpacer() {
+    if (!spacer) {
+      spacer = document.createElement('div');
+      spacer.style.height = menuBody.offsetHeight + 'px';
+      spacer.style.display = 'none';
+      spacer.className = 'page-blog-menu-spacer';
+      menuContainer.insertBefore(spacer, menuBody);
+    }
+  }
+
+  function resetPosition() {
+    if (!isFixed) return;
+
+    menuBody.style.position = '';
+    menuBody.style.top = '';
+    menuBody.style.left = '';
+    menuBody.style.width = '';
+    menuBody.style.transform = '';
+    menuBody.classList.remove('_fixed', '_bottom');
+
+    if (spacer) {
+      spacer.style.display = 'none';
+    }
+
+    isFixed = false;
+    isAtBottom = false;
+  }
+
+  function handleScroll() {
+    if (!isDesktop()) {
+      resetPosition();
+      return;
+    }
+
+    const pos = getPositions();
+    const scrollY = pos.scrollY;
+
+    menuBody.style.width = menuContainer.offsetWidth + 'px';
+
+    if (scrollY >= pos.startFix) {
+      if (!isFixed) {
+        menuBody.style.position = 'fixed';
+        menuBody.style.left = pos.containerLeft + 'px';
+        menuBody.classList.add('_fixed');
+
+        if (spacer) {
+          spacer.style.display = 'block';
+        }
+
+        isFixed = true;
+      }
+
+      const menuBottom = scrollY + OFFSET_TOP + menuHeight;
+
+      if (menuBottom >= pos.containerBottom) {
+        const offset = menuBottom - pos.containerBottom;
+        const newTop = OFFSET_TOP - offset;
+
+        menuBody.style.top = Math.max(newTop, OFFSET_TOP - pos.containerRect.height + menuHeight) + 'px';
+        menuBody.classList.add('_bottom');
+        isAtBottom = true;
+      } else {
+        menuBody.style.top = OFFSET_TOP + 'px';
+        menuBody.classList.remove('_bottom');
+        isAtBottom = false;
+      }
+    } else {
+      resetPosition();
+    }
+  }
+
+  function handleResize() {
+    if (isDesktop()) {
+      if (!spacer) {
+        createSpacer();
+      }
+      setTimeout(() => {
+        if (spacer) {
+          spacer.style.height = menuBody.offsetHeight + 'px';
+        }
+        handleScroll();
+      }, 100);
+    } else {
+      resetPosition();
+      if (spacer) {
+        spacer.style.display = 'none';
+      }
+      menuBody.style.position = '';
+      menuBody.style.top = '';
+      menuBody.style.left = '';
+      menuBody.style.width = '';
+      menuBody.style.transform = '';
+      menuBody.classList.remove('_fixed', '_bottom');
+      isFixed = false;
+      isAtBottom = false;
+    }
+  }
+
+  function init() {
+    if (isDesktop()) {
+      createSpacer();
+      setTimeout(handleScroll, 200);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(() => {
+        if (isDesktop()) {
+          setTimeout(() => {
+            if (spacer) {
+              spacer.style.height = menuBody.offsetHeight + 'px';
+            }
+            handleScroll();
+          }, 100);
+        }
+      });
+      observer.observe(menuContainer);
+      observer.observe(menuBody);
+    }
+  }
+
+  init();
+});
+
+//========================================================================================================================================================
+
+//Яндекс карта
+const map = document.querySelector('#map1');
+if (map) {
+  ymaps.ready(init);
+
+  function init() {
+    var myMap = new ymaps.Map('map1', {
+      center: [55.844344, 37.448420],
+      zoom: 15,
+      controls: ['zoomControl'],
+      behaviors: ['drag']
+    }, {
+      searchControlProvider: 'yandex#search'
+    });
+
+    myMap.geoObjects
+      .add(new ymaps.Placemark([55.844344, 37.448420], {
+        /*
+        iconColor: '#0c8ce9',
+        iconImageSize: [105, 140],
+        iconImageOffset: [-57, -137],*/
+      }))
+
+  };
+}
