@@ -197,10 +197,13 @@ a {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 50px;
+  &.fw {
+    font-weight: 400;
+  }
   span {
     font-weight: 700;
     &.color {
-      font-weight: 500;
+      font-weight: 400;
       color: var(--f6ec4c);
     }
   }
